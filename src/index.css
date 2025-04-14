@@ -2,3 +2,81 @@ body{
     background: rgb(32, 32, 32);
     color: white;
 }
+
+.horizontal-scroll{
+    max-width: 100%;
+    max-height: auto;
+    display:flex;
+    padding-bottom: 40px;
+}
+.card {
+    display:flex;
+    background: rgb(15, 15, 15);
+    color:white;
+    min-width: 250px;
+    margin-right:10px;
+}
+.card-body{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.card-title{
+    font-family: "Goldman";
+}
+.list-group-item{
+    padding:1px 10px 1px 10px;
+    text-align: left;
+    font-size: 0.9em;
+    background: rgb(28, 28, 28);
+    color: white;
+    border-color: rgb(56, 56, 56);
+
+}
+.item-label{
+    font-size: 0.8em;
+    color:red;
+    
+}
+.read-more-button{
+    width: 79%;
+    text-align: center;
+    margin: auto;
+}
+
+.read-more-button:hover{
+    
+    background-color: rgb(106, 0, 0);
+}
+.favorite-button{
+    margin-left:2%;
+    width: 19%;
+}
+.favorite-button:hover{
+    
+    background-color: rgb(106, 0, 0);
+}
+
+.section-title h2{
+    font-family: "Goldman";
+    font-size: 5em;
+  }
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 9px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgb(57, 57, 57);
+    border-radius: 3px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: rgb(73, 73, 73);
+    border-radius: 3px;
+  }
