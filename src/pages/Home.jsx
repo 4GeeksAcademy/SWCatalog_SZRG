@@ -33,12 +33,15 @@ export const Home = () => {
 		const detailPromises = urls.map(url =>
 			fetch(url).then(res => res.json())
 		);
-
+		
 		const details = await Promise.all(detailPromises);
 		const fullPeople = details
-			.filter(item => item.result?.properties)
-			.map(item => item.result.properties);
-
+		.map((item, index) => ({
+			uid: data.results[index].uid,
+			url: data.results[index].url,
+			...item.result.properties
+		}));
+		
 		dispatch({
 			type: "load_people",
 			payload: {
@@ -66,12 +69,17 @@ export const Home = () => {
 		const detailPromises = urls.map(url =>
 			fetch(url).then(res => res.json())
 		);
-
+	
 		const details = await Promise.all(detailPromises);
 		const fullPlanets = details
-			.filter(item => item.result?.properties)
-			.map(item => item.result.properties);
-
+		.map((item, index) => ({
+			uid: data.results[index].uid,
+			url: data.results[index].url,
+			...item.result.properties
+		}));
+	
+		
+		
 		dispatch({
 			type: "load_planets",
 			payload: {
@@ -84,7 +92,7 @@ export const Home = () => {
 	}
 
 	const loadVehicles = async () => {
-		if (store.planets.length > 0) return;
+		if (store.vehicles.length > 0) return;
 		setLoadingVehicles(true);
 		let response = await fetch("https://www.swapi.tech/api/vehicles/")
 		if (!response.ok) {
@@ -101,8 +109,11 @@ export const Home = () => {
 
 		const details = await Promise.all(detailPromises);
 		const fullVehicles = details
-			.filter(item => item.result?.properties)
-			.map(item => item.result.properties);
+		.map((item, index) => ({
+			uid: data.results[index].uid,
+			url: data.results[index].url,
+			...item.result.properties
+		}));
 
 		dispatch({
 			type: "load_vehicles",
@@ -130,7 +141,7 @@ export const Home = () => {
 							</div> :
 							<HorizontalScroll>
 								{Array.isArray(store.people) && store.people.map((person, index) =>
-									<BaseCard key={index} title={person.name} url={person.url}  id={person}
+									<BaseCard key={index} title={person.name} url={person.url}  uid={person.uid} img="https://picsum.photos/seed/picsum/200"
 									type="people">
 										<PeopleInfo people={person} />
 									</BaseCard>)}
@@ -149,7 +160,7 @@ export const Home = () => {
 							</div> :
 							<HorizontalScroll>
 								{Array.isArray(store.planets) && store.planets.map((planet, index) =>
-									<BaseCard key={index} title={planet.name} url={planet.url}   id={planet.id}
+									<BaseCard key={index} title={planet.name} url={planet.url}   uid={planet.uid} img="https://picsum.photos/seed/picsum/200"
 									type="planets">
 										<PlanetsInfo planets={planet} />
 									</BaseCard>)}
@@ -168,7 +179,7 @@ export const Home = () => {
 							</div> :
 							<HorizontalScroll>
 								{Array.isArray(store.vehicles) && store.vehicles.map((vehicle, index) =>
-									<BaseCard key={index} title={vehicle.name} url={vehicle.url}  id={vehicle.id}
+									<BaseCard key={index} title={vehicle.name} url={vehicle.url}  uid={vehicle.uid} img="https://picsum.photos/seed/picsum/200"
 									type="vehicles">
 										<VehiclesInfo vehicles={vehicle} />
 									</BaseCard>)}

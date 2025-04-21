@@ -7,9 +7,9 @@ export const initialStore = () => {
     peopleCount: 0,
     nextPlanets: "",
     planetsCount: 0,
-    nextVehicles:"",
+    nextVehicles: "",
     vehiclesCount: 0,
-    favorites:[],
+    favorites: [],
 
   }
 }
@@ -17,8 +17,6 @@ export const initialStore = () => {
 export default function storeReducer(store, action = {}) {
   switch (action.type) {
     case 'load_people':
-      console.log("People loaded...")
-
       return {
         ...store,
         people: action.payload.results,
@@ -28,8 +26,7 @@ export default function storeReducer(store, action = {}) {
       };
 
     case 'load_planets':
-      console.log("Planets loaded...")
-      return { 
+      return {
         ...store,
         planets: action.payload.results,
         nextPlanets: action.payload.next,
@@ -37,24 +34,29 @@ export default function storeReducer(store, action = {}) {
       }
 
     case 'load_vehicles':
-      console.log("Vehicles loaded...")
-      return { 
+      return {
         ...store,
         vehicles: action.payload.results,
         nextVehicles: action.payload.next,
         vehiclesCount: action.payload.count
-      
+
       };
 
     case 'add_favorite':
-
+      if (store.favorites.some(item => item.uid === action.payload.uid && item.type === action.payload.type)) {
+        return store;
+      }
       return {
-        ...store
+        ...store,
+        favorites: [...store.favorites, action.payload],
       };
 
-    case 'delete_favorite':
+    case "remove_favorite":
       return {
-
+        ...store,
+        favorites: store.favorites.filter(
+          (item) => !(item.uid === action.payload.uid && item.type === action.payload.type)
+        )
       };
 
     default:
